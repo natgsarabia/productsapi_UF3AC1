@@ -1,5 +1,6 @@
 const express = require('express')
 const products_routes = require('./routes/products.js')
+const slugify = require('slugify'); 
 
 //Server instantiation
 const app = express()
@@ -13,9 +14,13 @@ app.use(express.static('/views'));
 app.use(express.json())
 app.use('/', products_routes)
 
+// Generar mensaje slugizado con asteriscos
+const mensaje = 'server is listening on port 5000';
+const mensajeSlug = slugify(mensaje).replace(/-/g, '*');
+
 //Server startup
 app.listen(5000, () => {
-    console.log('server is listening on port 5000')
+    console.log(mensajeSlug)
 })
 
 

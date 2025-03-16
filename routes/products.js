@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const auth = require('../auth/auth')
 
+
 const renderHome = require('../controllers/site/home')
 
 const getProducts = require('../controllers/api/getProducts')
@@ -11,6 +12,8 @@ const updateProduct = require('../controllers/api/updateProduct')
 
 // const deleteProduct = require('../controllers/api/deleteProduct')
 const createUser = require('../controllers/users/createUser')
+
+
 
 router.get('/api', renderHome)
 router.get('/api/products', auth.authenticateKey, getProducts)

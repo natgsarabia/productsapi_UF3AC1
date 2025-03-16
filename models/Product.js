@@ -67,16 +67,11 @@ Product.update = async (product) => {
 
     const collection = db.collection('products');
 
-    //
-    const productId = parseInt(product.id);
-    if (isNaN(productId)) {
-      throw new Error(`ID inválido: ${product.id}`);
-    }
-    //
+    let query = {"id": id};
+    const findResult = await collection.findOne(query);
 
-    const selector = {"id": parseInt(product.id)};
     const set  = { "$set": {"name": product.name, "price": product.price}};
-    const updateResult = await collection.updateOne(selector,set);
+    const updateResult = await collection.updateOne(findResult,set);
     // return updateResult;
      // Verificar si realmente se modificó algún documento
      if (updateResult.matchedCount === 0) {
