@@ -11,8 +11,10 @@ const createUser = ((req, res) => {
     // usage: [{ date: today, count: 0 }],
   });
 
+  console.log("Nombre usuario:"+user.name+" contraseña: "+user.password+" apikey: "+user.apiKey);
+
+  
   // Save Product in the database
-  // console.log(user);
   User.create(user)
     .then((results) => {
       // HTTP response
@@ -27,3 +29,5 @@ const createUser = ((req, res) => {
 })
 
 module.exports = createUser
+
+

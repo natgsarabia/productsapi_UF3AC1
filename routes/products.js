@@ -8,6 +8,7 @@ const getProducts = require('../controllers/api/getProducts')
 const getProduct = require('../controllers/api/getProduct')
 const createProduct = require('../controllers/api/createProduct')
 const updateProduct = require('../controllers/api/updateProduct')
+
 // const deleteProduct = require('../controllers/api/deleteProduct')
 const createUser = require('../controllers/users/createUser')
 
