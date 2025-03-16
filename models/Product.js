@@ -61,14 +61,36 @@ Product.listAll = async () =>{
 }
 
 Product.update = async (product) => {
-  const db = await mongoClient.connect();
-  console.log('Connected successfully to database (MongoDB)');
+  try {
+    const db = await mongoClient.connect();
+    console.log('Connected successfully to database (MongoDB)');
 
-  const collection = db.collection('products');
-  const selector = {"id": parseInt(product.id)};
-  const set  = { "$set": {"name": product.name, "price": product.price}};
-  const updateResult = await collection.updateMany(selector,set);
-  return updateResult;
+    const collection = db.collection('products');
+
+    //
+    const productId = parseInt(product.id);
+    if (isNaN(productId)) {
+      throw new Error(`ID inválido: ${product.id}`);
+    }
+    //
+
+    const selector = {"id": parseInt(product.id)};
+    const set  = { "$set": {"name": product.name, "price": product.price}};
+    const updateResult = await collection.updateOne(selector,set);
+    // return updateResult;
+     // Verificar si realmente se modificó algún documento
+     if (updateResult.matchedCount === 0) {
+      console.log(`❌ No se encontró un producto con ID ${productId}`);
+      return { message: "Producto no encontrado", success: false };
+    } else {
+      console.log(`✅ Producto actualizado correctamente: ${JSON.stringify(updateResult)}`);
+      return { message: "Producto actualizado", success: true };
+    }
+
+  }catch(error) {
+    console.error('❌ Error al actualizar el producto:', error);
+    throw error;
+  }
 };
 
 //TBD: Product.delete
