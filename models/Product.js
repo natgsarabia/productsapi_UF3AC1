@@ -46,8 +46,8 @@ Product.listByID = async (id) =>{
   console.log('Connected successfully to database (MongoDB)');
 
   const collection = db.collection('products');
-  let query = {"id": parseInt(id)};
-  const findResult = await collection.find(query).toArray();
+  let query = {"id": id};
+  const findResult = await collection.findOne(query);
   return findResult;
 }
 
